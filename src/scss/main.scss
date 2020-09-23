@@ -1,0 +1,66 @@
+$max-width: 1200px;
+$common-font: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+// MAIN STYLING
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $common-font;
+  background: #fde5d0;
+  line-height: 0;
+}
+
+img {
+  width: 400px;
+  height: 400px;
+}
+
+h1 {
+  margin: 20px 0 30px;
+  color: black;
+  text-align: center;
+}
+
+.login-download-container {
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  background: #aad4f8;
+  border-radius: 15px;
+  border: 4px solid #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    margin-bottom: 15px;
+    font-size: 1.25rem;
+  }
+
+  input[type="text"] {
+    padding: 5px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border: 1px solid #888;
+  }
+
+  button {
+    background: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    cursor: pointer;
+    font-family: $common-font;
+    font-size: 1.1rem;
+
+    &:hover {
+      background: #ccc;
+    }
+  }
+}
