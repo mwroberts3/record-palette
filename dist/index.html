@@ -6,23 +6,43 @@
     <title>Record Palette</title>
   </head>
   <body>
-    <html>
-      <head>
-        <title>Record Palette</title>
-      </head>
-      <body>
-        <h1>Record Palette</h1>
-        <div class="login-download-container">
-          <label>Enter Discogs username</label>
-          <input type="text" class="username" />
-          <label>Enter folder ID (not required)</label>
-          <input type="text" class="folder-id" />
-          <button class="download-images">Download Images</button>
+    <header>
+      <h1>Record Palette</h1>
+      <p><em>powered by Discogs</em></p>
+      <p class="user-msg">&nbsp;</p>
+    </header>
+    <div class="login-download-container">
+      <div class="logged-out-options">
+        <label class="username-label">Enter Discogs username</label>
+        <input type="text" class="username" />
+        <label class="folder-id-label">Enter folder ID (not required)</label>
+        <input type="text" class="folder-id" />
+        <button class="login">Login</button>
+      </div>
+      <div class="logged-in-options hidden">
+        <div>
+          <label class="logged-in-username"></label>
+          <button class="logout">Logout</button>
         </div>
-      </body>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-      <!-- <script src="/src/index.js"></script> -->
-      <script src="bundle.js"></script>
-    </html>
+        <div>
+          <label>Size: </label>
+          <select id="image-size">
+            <option value="tiny">Tiny</option>
+            <option value="small">Small</option>
+            <option value="medium" selected>Medium</option>
+            <option value="large">Large</option>
+            <option value="huge">Huge</option>
+          </select>
+        </div>
+        <button class="download-images">Download Images</button>
+      </div>
+    </div>
+    <div class="image-container"></div>
+    <footer>
+      <p>v1.0 2020 GitHub</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <!-- <script src="/src/index.js"></script> -->
+    <script src="bundle.js"></script>
   </body>
 </html>
