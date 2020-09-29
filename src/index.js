@@ -3,9 +3,7 @@ import './scss/main.scss';
 const token = "ofXwtIhxmQZTDufjImxFCCHkeucHvlUoXRirlyvQ";
 
 const usernameInput = document.querySelector(".username");
-const usernameLabel = document.querySelector(".username-label");
 const folderIdInput = document.querySelector(".folder-id");
-const folderIdLabel = document.querySelector(".folder-id-label");
 const logoutBtn = document.querySelector(".logout");
 const loggedInUsername = document.querySelector(".logged-in-username");
 const loggedInOptions = document.querySelector(".logged-in-options");
@@ -21,6 +19,7 @@ const imageContainer = document.querySelector(".image-container");
 
 
 let albumCovers = [];
+let albumData = [];
 let username = '';
 let folderId = '';
 
@@ -32,16 +31,16 @@ let imageSizeRange = {
     "huge" : {min : 700, max : 1400},
 }
 
-console.log(imageContainer.children);
+
 
 // Accept user inputs
 usernameInput.addEventListener("change", () => {
     username = usernameInput.value.trim(); 
 
-    loginBtn.addEventListener("click", gatherImages);
+    loginBtn.addEventListener("click", gatherImagesandData);
     document.addEventListener("keyup", (e) => {
         if (e.code === "Enter" || e.code === "NumpadEnter") {
-            gatherImages();
+            gatherImagesandData();
         }
     })
 })
@@ -53,17 +52,19 @@ folderIdInput.addEventListener("change", () => {
 imageSize.addEventListener("change", ()=> {
     imageContainer.innerHTML = '';
     applyImageSize();
-    // displayImages(albumCovers);
 })
 
 
 // store collection covers in an array
-async function gatherImages() {
+async function gatherImagesandData() {
     if (!folderId) {
         folderId = 0;
     }
     const response = await fetch(`https://api.discogs.com/users/${username}/collection/folders/${folderId}/releases?token=${token}`);
-    const data = await response.json(); 
+    const data = await response.json();
+    
+    console.log(data);
+    console.log(response);
 
     if (response.status === 404) {
         userMsg.textContent = "username not found";
@@ -82,35 +83,48 @@ async function gatherImages() {
 
         for (let i = 0; i < data.releases.length; i++) {
             albumCovers.push(data.releases[i].basic_information.cover_image);
+            albumData.push(data.releases[i].basic_information);
         }
     
         // Apply preliminary image size and then display images
         applyImageSize();
-        
+        console.log(albumData);
         
         downloadBtn.addEventListener("click", download);
     }
 }
 
 function displayImages (albumCovers) {
+    let i = 0;
     albumCovers.forEach((cover) => {
+        const albumContainer = document.createElement("div");
+        albumContainer.classList.add("album-container");
+
         const image = document.createElement("div");
-        // image.innerHTML = `
-        // <img src="${cover}">
-        // `
         image.classList.add("cover-img");
-        image.style.background = `url("${cover}") no-repeat center center/cover`
-        // image.textContent = "";
-        // imageContainer.innerHTML += `<img src="${cover}">`
-    //     image.innerHTML += `<img src="${cover}">`;
-    imageContainer.appendChild (image); 
+        image.style.background = `url("${cover}") no-repeat center center/cover`;
+        albumContainer.appendChild(image);
+
+        const caption = document.createElement("div");
+        caption.classList.add("album-caption");
+
+        const albumName = document.createElement("p");
+        albumName.textContent = `"${albumData[i].title}"`
+        caption.appendChild(albumName);
+
+        const artistName = document.createElement("p");
+        artistName.textContent = `${albumData[i].artists[0].name}`
+        caption.appendChild(artistName);
+
+        albumContainer.appendChild(caption);
+        
+        imageContainer.appendChild (albumContainer); 
+        i++;
     })
 }
 
 function applyImageSize() {
     imageContainer.style["grid-template-columns"] = `repeat(auto-fill, minmax(${imageSizeRange[imageSize.value].min}px, 1fr))`;
-
-    console.log(imageSizeRange[imageSize.value].min, imageSizeRange[imageSize.value].max);
 
     document.querySelectorAll(".cover-img").forEach((cover) => {
         cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;

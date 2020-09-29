@@ -4,8 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Record Palette</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+      crossorigin="anonymous"
+    />
   </head>
   <body>
+    <script src="bundle.js"></script>
     <header>
       <h1>Record Palette</h1>
       <p><em>powered by Discogs</em></p>
@@ -35,11 +42,30 @@
           </select>
         </div>
         <button class="download-images">Download Images</button>
+        <div>
+          <label>Show Caption</label>
+          <input type="checkbox" />
+        </div>
+        <div>
+          <label>Sort By:</label>
+          <select id="sort-by">
+            <option value="artist">Artist</option>
+            <option value="album">Album</option>
+            <option value="genre">Genre</option>
+            <option value="yearReleased">Year Released</option>
+            <option value="dateAdded">Date Added to Collection</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="image-container"></div>
     <footer>
-      <p>v1.0 2020 GitHub</p>
+      <p>v1.0 2020</p>
+      <p>
+        <a href="https://github.com/mwroberts3/record-palette">
+          <i class="fab fa-github"></i>
+        </a>
+      </p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <!-- <script src="/src/index.js"></script> -->
