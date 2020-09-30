@@ -10,6 +10,7 @@
       integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
       crossorigin="anonymous"
     />
+    <!-- <link rel="stylesheet" href="main.css" /> -->
   </head>
   <body>
     <script src="bundle.js"></script>
@@ -20,9 +21,9 @@
     </header>
     <div class="login-download-container">
       <form class="logged-out-options">
-        <label class="username-label">Enter Discogs username</label>
+        <label class="username-label">Discogs username</label>
         <input type="text" class="username" />
-        <label class="folder-id-label">Enter folder ID (not required)</label>
+        <label class="folder-id-label">Folder ID (not required)</label>
         <input type="text" class="folder-id" />
         <button class="login">Login</button>
       </form>
@@ -30,6 +31,14 @@
         <div>
           <label class="logged-in-username"></label>
           <button class="logout">Logout</button>
+        </div>
+        <div>
+          <label>Sort By:</label>
+          <select id="sort-by">
+            <option value="artist">Artist</option>
+            <option value="album">Album</option>
+            <option value="date-added">Date Added</option>
+          </select>
         </div>
         <div>
           <label>Size: </label>
@@ -41,21 +50,11 @@
             <option value="huge">Huge</option>
           </select>
         </div>
-        <button class="download-images">Download Images</button>
-        <div>
-          <label>Show Caption</label>
+        <div id="captions-checkbox">
+          <label>Caption</label>
           <input type="checkbox" id="show-caption" />
         </div>
-        <div>
-          <label>Sort By:</label>
-          <select id="sort-by">
-            <option value="artist">Artist</option>
-            <option value="album">Album</option>
-            <option value="genre">Genre</option>
-            <option value="yearReleased">Year Released</option>
-            <option value="dateAdded">Date Added to Collection</option>
-          </select>
-        </div>
+        <button class="download-images">Download Images</button>
       </div>
     </div>
     <div class="image-container"></div>

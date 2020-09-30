@@ -5,7 +5,6 @@ const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
 const folderIdInput = document.querySelector(".folder-id");
 const userMsg = document.querySelector(".user-msg");
-const loginBtn = document.querySelector(".login");
 
 // Options AFTER logging in
 const loggedOutOptions = document.querySelector(".logged-out-options");
@@ -14,15 +13,14 @@ const downloadBtn = document.querySelector(".download-images");
 const imageSize = document.querySelector("#image-size");
 const loggedInUsername = document.querySelector(".logged-in-username");
 const showCaption = document.getElementById("show-caption");
-
-console.log(showCaption.checked);
+const sortBy = document.getElementById("sort-by");
 
 // Containers
 const loginDownloadContainer = document.querySelector(".login-download-container");
 const imageContainer = document.querySelector(".image-container");
 
-let albumCovers = [];
 let albumData = [];
+let albumCovers = [];
 let username = '';
 let folderId = '';
 
@@ -36,12 +34,32 @@ let imageSizeRange = {
 
 const token = "ofXwtIhxmQZTDufjImxFCCHkeucHvlUoXRirlyvQ";
 
-// Login event listeners
+// Check local storage for saved settings
+if (localStorage.getItem("username")) {
+    loggedOutOptions.innerHTML = '';
+    loggedOutOptions.classList.add("user-msg");
+    loggedOutOptions.textContent = '...loading collection';
+    username = localStorage.getItem("username");
+
+    if (localStorage.getItem("imageSize")){
+        imageSize.value = localStorage.getItem("imageSize");
+    }
+
+    if (localStorage.getItem("sortBy")){
+        sortBy.value = localStorage.getItem("sortBy");
+    }
+
+    if (localStorage.getItem("captions") === "checked") {
+        showCaption.checked = true;
+    }
+
+    gatherImagesandData();
+}
+
+// BEFORE login event listeners
 usernameInput.addEventListener("change", () => {
     username = usernameInput.value.trim(); 
 })
-
-loginBtn.addEventListener("click",validateForm);
 
 loginDownloadContainer.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -52,7 +70,7 @@ folderIdInput.addEventListener("change", () => {
     folderId = folderIdInput.value.trim();
 })
 
-// Logged in event listeners
+// AFTER login event listeners
 imageSize.addEventListener("change", ()=> {
     imageContainer.innerHTML = '';
     applyImageSize();
@@ -61,8 +79,12 @@ imageSize.addEventListener("change", ()=> {
 showCaption.addEventListener("click", displayImages);
 
 logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("username");
     location.reload();
-    // NEED TO UPDATE WHEN ADDING LOCAL STORAGE
+})
+
+sortBy.addEventListener("change", () => {
+    sortAlbums();
 })
 
 // Form validation
@@ -88,6 +110,7 @@ async function gatherImagesandData() {
     if (response.status === 404) {
         userMsg.textContent = "username not found";
     } else {
+        localStorage.setItem("username", username);
         loggedOutOptions.classList.add("hidden");
         loggedInOptions.classList.remove("hidden");
 
@@ -102,7 +125,7 @@ async function gatherImagesandData() {
 
         for (let i = 0; i < data.releases.length; i++) {
             albumCovers.push(data.releases[i].basic_information.cover_image);
-            albumData.push(data.releases[i].basic_information);
+            albumData.push(data.releases[i]);
         }
     
         // Apply preliminary image size and then display images
@@ -113,17 +136,74 @@ async function gatherImagesandData() {
     }
 }
 
+function applyImageSize() {
+    imageContainer.style["grid-template-columns"] = `repeat(auto-fill, minmax(${imageSizeRange[imageSize.value].min}px, 1fr))`;
+
+    document.querySelectorAll(".cover-img").forEach((cover) => {
+        cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;
+    })
+
+    localStorage.setItem("imageSize", imageSize.value);
+
+    sortAlbums();
+}
+
+function sortAlbums() {
+    // sort by artist name ascending
+    if (sortBy.value === "artist") {
+        albumData.sort((a, b) => {
+            if (a.basic_information.artists[0].name > b.basic_information.artists[0].name) {
+                return 1;
+            } else if (b.basic_information.artists[0].name > a.basic_information.artists[0].name) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+
+    // sort by album name ascending
+    if (sortBy.value === "album") {
+        albumData.sort((a, b) => {
+            if (a.basic_information.title > b.basic_information.title) {
+                return 1;
+            } else if (b.basic_information.title > a.basic_information.title) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+
+    // sort by date added ascending
+    if (sortBy.value === "date-added") {
+        albumData.sort((a, b) => {
+            if (a.date_added > b.date_added) {
+                return 1;
+            } else if (b.date_added > a.date_added) {
+                return -1;
+            } else {
+                return 0;
+            }
+        })
+    }
+
+    localStorage.setItem("sortBy", sortBy.value);
+
+    displayImages();
+}
+
 function displayImages () {
     imageContainer.innerHTML = '';
     let i = 0;
-    albumCovers.forEach((cover) => {
+    albumData.forEach((album) => {
         const albumContainer = document.createElement("div");
         albumContainer.classList.add("album-container");
 
         // Display image
         const image = document.createElement("div");
         image.classList.add("cover-img");
-        image.style.background = `url("${cover}") no-repeat center center/cover`;
+        image.style.background = `url("${album.basic_information.cover_image}") no-repeat center center/cover`;
         albumContainer.appendChild(image);
 
         // Display caption if option checked
@@ -132,33 +212,29 @@ function displayImages () {
             caption.classList.add("album-caption");
     
             const albumName = document.createElement("p");
-            albumName.textContent = `"${albumData[i].title}"`
+            albumName.textContent = `"${albumData[i].basic_information.title}"`
             caption.appendChild(albumName);
     
             const artistName = document.createElement("p");
-            artistName.textContent = `${albumData[i].artists[0].name}`
+            artistName.textContent = `${albumData[i].basic_information.artists[0].name}`
             caption.appendChild(artistName);
     
             albumContainer.appendChild(caption);
             
+            localStorage.setItem("captions", "checked");
+            
             i++;
+        } else if (!showCaption.checked) {
+            localStorage.setItem("captions", "not checked");
         }
+        
+        
 
         imageContainer.appendChild (albumContainer); 
     })
 }
 
-function applyImageSize() {
-    imageContainer.style["grid-template-columns"] = `repeat(auto-fill, minmax(${imageSizeRange[imageSize.value].min}px, 1fr))`;
-
-    document.querySelectorAll(".cover-img").forEach((cover) => {
-        cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;
-    })
-
-    displayImages(albumCovers);
-}
-
-function download(){ 
+async function download(){ 
     let downloaded = 0;
         const downloadTimer = setInterval(()=> {
             axios({ 
@@ -171,15 +247,16 @@ function download(){
                .createObjectURL(new Blob([response.data])); 
                       const link = document.createElement('a'); 
                       link.href = url; 
-                      link.setAttribute('download', 'test.jpg'); 
+                      link.setAttribute('download', `cover.jpg`); 
                       document.body.appendChild(link); 
                       link.click(); 
-        })
 
-        downloaded++;
-        if (downloaded > albumCovers.length) {
-            clearInterval(downloadTimer);
-        }
+                      downloaded++;
+                      console.log(albumData.length, downloaded);
+                      if (downloaded > albumData.length) {
+                          clearInterval(downloadTimer);
+                      }
+        })
         }, 100) 
   } 
 

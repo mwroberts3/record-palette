@@ -1,5 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+
 $max-width: 1700px;
-$common-font: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+$common-font: "Quicksand", sans-serif;
 $main-color: #000;
 
 // Main styling
@@ -89,7 +91,7 @@ select {
 
     label {
       margin-bottom: 15px;
-      font-size: 1.25rem;
+      font-size: 1.2rem;
     }
 
     input[type="text"] {
@@ -168,9 +170,10 @@ select {
 }
 
 .user-msg {
-  color: rgb(90, 0, 90);
+  color: rgb(59, 0, 59);
   font-size: 1.25rem;
   font-style: italic;
+  font-weight: bold;
 }
 
 // Footer
