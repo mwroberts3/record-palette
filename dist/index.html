@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Record Palette</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
@@ -13,7 +14,6 @@
     <!-- <link rel="stylesheet" href="main.css" /> -->
   </head>
   <body>
-    <script src="bundle.js"></script>
     <header>
       <h1>Record Palette</h1>
       <p><em>powered by Discogs</em></p>
@@ -33,7 +33,7 @@
           <button class="logout">Logout</button>
         </div>
         <div>
-          <label>Sort By:</label>
+          <label>Sort:</label>
           <select id="sort-by">
             <option value="artist">Artist</option>
             <option value="album">Album</option>
@@ -54,14 +54,14 @@
           <label>Caption</label>
           <input type="checkbox" id="show-caption" />
         </div>
-        <button class="download-images">Download Images</button>
+        <button class="download-images">Save Images</button>
       </div>
     </div>
     <div class="image-container"></div>
     <footer>
       <p>v1.0</p>
       <p>
-        <a href="https://github.com/mwroberts3/record-palette">
+        <a href="https://github.com/mwroberts3/record-palette" target="_blank">
           <i class="fab fa-github"></i>
         </a>
       </p>

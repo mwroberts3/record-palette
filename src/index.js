@@ -1,9 +1,9 @@
-import './scss/main.scss';
+// import './scss/main.scss';
 
 // Inputs BEFORE logging in
 const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
-const folderIdInput = document.querySelector(".folder-id");
+const folderIdInput = document.querySelector(".folder-id"); 
 const userMsg = document.querySelector(".user-msg");
 
 // Options AFTER logging in
@@ -113,7 +113,7 @@ async function gatherImagesandData() {
         localStorage.setItem("username", username);
         loggedOutOptions.classList.add("hidden");
         loggedInOptions.classList.remove("hidden");
-
+        logoutBtn.classList.add("logged-in-btn");
 
         loggedInUsername.textContent = `${username}`; 
 
@@ -137,11 +137,36 @@ async function gatherImagesandData() {
 }
 
 function applyImageSize() {
+    let mobileWidth = window.matchMedia("(max-width: 420px)");
+    let tabletWidth = window.matchMedia("(max-width: 740px)");
+
     imageContainer.style["grid-template-columns"] = `repeat(auto-fill, minmax(${imageSizeRange[imageSize.value].min}px, 1fr))`;
 
-    document.querySelectorAll(".cover-img").forEach((cover) => {
-        cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;
+    if (mobileWidth.matches && imageSize.value === "large" || mobileWidth.matches && imageSize.value === "huge") {
+        imageContainer.style["grid-template-columns"] = `1fr`;
+    }
+
+    if (tabletWidth.matches && imageSize.value === "huge") {
+        imageContainer.style["grid-template-columns"] = `1fr`;
+    }
+
+    // if (tabletWidth.matches) {
+    //     imageContainer.style["grid-template-columns"] = `1fr`;
+    // }
+
+    // document.querySelectorAll(".cover-img").forEach((cover) => {
+    //     cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;
+    // });
+
+    console.log(document.querySelectorAll(".cover-img"));
+
+
+    imageContainer.classList.forEach((clas) => {
+        if (clas !== "image-container") {
+            imageContainer.classList.remove(clas);
+        }
     })
+    imageContainer.classList.add(`${imageSize.value}`);
 
     localStorage.setItem("imageSize", imageSize.value);
 

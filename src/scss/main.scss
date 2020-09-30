@@ -29,13 +29,21 @@ body {
   width: 100% !important;
   flex-direction: row !important;
   justify-content: space-around !important;
+
+  @media screen and (max-width: 769px) {
+    height: 100px !important;
+  }
+
+  @media screen and (max-width: 429px) {
+    height: 130px !important;
+  }
 }
 
 button {
   background: #eee;
   padding: 5px 10px;
   width: 130px;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid #888;
   cursor: pointer;
   font-family: $common-font;
@@ -47,6 +55,16 @@ button {
 
   &:focus {
     outline: none;
+  }
+}
+
+.logged-in-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+
+  &:hover {
+    background: transparent;
   }
 }
 
@@ -66,10 +84,21 @@ select {
   padding: 5px;
   border-radius: 5px;
   border: 1px solid #888;
+  font-family: $common-font;
+  font-size: 0.9rem;
+  background: #eee;
 
   &:focus {
     outline-color: rgb(58, 82, 82);
   }
+
+  @media screen and (max-width: 429px) {
+    // width: 100px;
+  }
+}
+
+#show-caption {
+  cursor: pointer;
 }
 
 // Specific styling
@@ -83,6 +112,7 @@ select {
 
   .logged-out-options {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -110,15 +140,41 @@ select {
 
   .logged-in-options {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    height: 60px;
+    height: inherit;
     margin: auto 0;
+    padding-bottom: 5px;
+
+    :first-child {
+      @media screen and (max-width: 769px) {
+        margin-top: 0;
+        width: 100%;
+        text-align: center;
+
+        * {
+          padding: 0 20px;
+        }
+      }
+    }
+
+    :nth-child(4) {
+      @media screen and (max-width: 429px) {
+        margin-top: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
   }
 }
 
 .download-images {
-  width: 220px;
+  max-width: 220px;
+
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
 
   @media (pointer: none), (pointer: coarse) {
     display: none;
@@ -127,7 +183,7 @@ select {
 
 .image-container {
   padding: 0 4px 30px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   width: 100%;
   // line-height: 0;
   display: grid;
@@ -155,17 +211,32 @@ select {
       align-items: center;
       justify-content: center;
       background: #666;
-      color: #fff;
+      color: #fdedde;
       border-bottom-right-radius: 5px;
       border-bottom-left-radius: 5px;
+      overflow: hidden;
 
       :first-child {
         margin-bottom: 7px;
       }
-
-      p {
-      }
     }
+  }
+}
+
+.small,
+.tiny {
+  font-size: 0.8rem;
+}
+
+.large {
+  @media screen and (max-width: 420px) {
+    grid-template-columns: repeat(auto-fill, 1fr);
+  }
+}
+
+.huge {
+  @media screen and (max-width: 740px) {
+    grid-template-columns: repeat(auto-fill, 1fr);
   }
 }
 
@@ -178,6 +249,7 @@ select {
   font-size: 1.25rem;
   font-style: italic;
   font-weight: bold;
+  margin: 10px;
 }
 
 // Footer

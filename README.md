@@ -1,4 +1,4 @@
-# Tempo Gradient
+# Record Palette
 
 **Current Version:** 1.0
 <br>
