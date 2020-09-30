@@ -1,22 +1,25 @@
 import './scss/main.scss';
 
-const token = "ofXwtIhxmQZTDufjImxFCCHkeucHvlUoXRirlyvQ";
-
+// Inputs BEFORE logging in
+const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
 const folderIdInput = document.querySelector(".folder-id");
-const logoutBtn = document.querySelector(".logout");
-const loggedInUsername = document.querySelector(".logged-in-username");
-const loggedInOptions = document.querySelector(".logged-in-options");
-const loggedOutOptions = document.querySelector(".logged-out-options");
-
-const loginDownloadContainer = document.querySelector(".login-download-container");
-const loginBtn = document.querySelector(".login");
-const downloadBtn = document.querySelector(".download-images");
 const userMsg = document.querySelector(".user-msg");
+const loginBtn = document.querySelector(".login");
 
+// Options AFTER logging in
+const loggedOutOptions = document.querySelector(".logged-out-options");
+const logoutBtn = document.querySelector(".logout");
+const downloadBtn = document.querySelector(".download-images");
 const imageSize = document.querySelector("#image-size");
-const imageContainer = document.querySelector(".image-container");
+const loggedInUsername = document.querySelector(".logged-in-username");
+const showCaption = document.getElementById("show-caption");
 
+console.log(showCaption.checked);
+
+// Containers
+const loginDownloadContainer = document.querySelector(".login-download-container");
+const imageContainer = document.querySelector(".image-container");
 
 let albumCovers = [];
 let albumData = [];
@@ -31,29 +34,45 @@ let imageSizeRange = {
     "huge" : {min : 700, max : 1400},
 }
 
+const token = "ofXwtIhxmQZTDufjImxFCCHkeucHvlUoXRirlyvQ";
 
-
-// Accept user inputs
+// Login event listeners
 usernameInput.addEventListener("change", () => {
     username = usernameInput.value.trim(); 
+})
 
-    loginBtn.addEventListener("click", gatherImagesandData);
-    document.addEventListener("keyup", (e) => {
-        if (e.code === "Enter" || e.code === "NumpadEnter") {
-            gatherImagesandData();
-        }
-    })
+loginBtn.addEventListener("click",validateForm);
+
+loginDownloadContainer.addEventListener("submit", (e) => {
+    e.preventDefault();
+    validateForm();
 })
 
 folderIdInput.addEventListener("change", () => {
     folderId = folderIdInput.value.trim();
 })
 
+// Logged in event listeners
 imageSize.addEventListener("change", ()=> {
     imageContainer.innerHTML = '';
     applyImageSize();
 })
 
+showCaption.addEventListener("click", displayImages);
+
+logoutBtn.addEventListener("click", () => {
+    location.reload();
+    // NEED TO UPDATE WHEN ADDING LOCAL STORAGE
+})
+
+// Form validation
+function validateForm() {
+    if (username === '') {
+        userMsg.textContent = "please enter username";
+    } else {
+        gatherImagesandData(); 
+    }
+}
 
 // store collection covers in an array
 async function gatherImagesandData() {
@@ -94,32 +113,38 @@ async function gatherImagesandData() {
     }
 }
 
-function displayImages (albumCovers) {
+function displayImages () {
+    imageContainer.innerHTML = '';
     let i = 0;
     albumCovers.forEach((cover) => {
         const albumContainer = document.createElement("div");
         albumContainer.classList.add("album-container");
 
+        // Display image
         const image = document.createElement("div");
         image.classList.add("cover-img");
         image.style.background = `url("${cover}") no-repeat center center/cover`;
         albumContainer.appendChild(image);
 
-        const caption = document.createElement("div");
-        caption.classList.add("album-caption");
+        // Display caption if option checked
+        if (showCaption.checked) {
+            const caption = document.createElement("div");
+            caption.classList.add("album-caption");
+    
+            const albumName = document.createElement("p");
+            albumName.textContent = `"${albumData[i].title}"`
+            caption.appendChild(albumName);
+    
+            const artistName = document.createElement("p");
+            artistName.textContent = `${albumData[i].artists[0].name}`
+            caption.appendChild(artistName);
+    
+            albumContainer.appendChild(caption);
+            
+            i++;
+        }
 
-        const albumName = document.createElement("p");
-        albumName.textContent = `"${albumData[i].title}"`
-        caption.appendChild(albumName);
-
-        const artistName = document.createElement("p");
-        artistName.textContent = `${albumData[i].artists[0].name}`
-        caption.appendChild(artistName);
-
-        albumContainer.appendChild(caption);
-        
         imageContainer.appendChild (albumContainer); 
-        i++;
     })
 }
 

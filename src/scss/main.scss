@@ -158,7 +158,6 @@ select {
       }
 
       p {
-        // padding: 5px;
       }
     }
   }
@@ -185,7 +184,15 @@ footer {
     padding: 0 5px;
   }
 
-  a:active {
+  a {
     color: $main-color;
+
+    :active {
+      color: $main-color;
+    }
+
+    :visited {
+      color: $main-color;
+    }
   }
 }

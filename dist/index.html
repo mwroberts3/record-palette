@@ -19,13 +19,13 @@
       <p class="user-msg">&nbsp;</p>
     </header>
     <div class="login-download-container">
-      <div class="logged-out-options">
+      <form class="logged-out-options">
         <label class="username-label">Enter Discogs username</label>
         <input type="text" class="username" />
         <label class="folder-id-label">Enter folder ID (not required)</label>
         <input type="text" class="folder-id" />
         <button class="login">Login</button>
-      </div>
+      </form>
       <div class="logged-in-options hidden">
         <div>
           <label class="logged-in-username"></label>
@@ -44,7 +44,7 @@
         <button class="download-images">Download Images</button>
         <div>
           <label>Show Caption</label>
-          <input type="checkbox" />
+          <input type="checkbox" id="show-caption" />
         </div>
         <div>
           <label>Sort By:</label>
@@ -60,7 +60,7 @@
     </div>
     <div class="image-container"></div>
     <footer>
-      <p>v1.0 2020</p>
+      <p>v1.0</p>
       <p>
         <a href="https://github.com/mwroberts3/record-palette">
           <i class="fab fa-github"></i>
