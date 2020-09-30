@@ -119,6 +119,10 @@ select {
 
 .download-images {
   width: 220px;
+
+  @media (pointer: none), (pointer: coarse) {
+    display: none;
+  }
 }
 
 .image-container {
