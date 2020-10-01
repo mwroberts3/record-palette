@@ -282,7 +282,7 @@ async function download(){
                           clearInterval(downloadTimer);
                       }
         })
-        }, 100) 
+        }, 750) 
   } 
 
 
