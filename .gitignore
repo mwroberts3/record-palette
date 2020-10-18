@@ -2,3 +2,6 @@ node_modules
 .babelrc
 bugs and todo
 ChurchSpringLight.png
+package.json
+package-lock.json
+test-users.txt
