@@ -1,0 +1,54 @@
+const currentPlayer = db.collection("players").doc("l8VRfMZ7KZiFNkEuvVmo");
+
+class Player {
+  constructor() {
+    this.name = "";
+    this.level = 0;
+    this.experience = 0;
+    this.expToNext = 0;
+    this.guiltFreeFunds = 0;
+  }
+
+  async levelUp() {
+    let addedFunds = randInt(10, 15 + Math.floor(this.level / 2));
+
+    currentPlayer.update({ experience: this.experience - this.expToNext });
+    currentPlayer.update({
+      exp_to_next: Math.round(this.expToNext * 1.15),
+    });
+    currentPlayer.update({ level: this.level + 1 });
+    currentPlayer.update({ guiltfree_funds: this.guiltFreeFunds + addedFunds });
+    setTimeout(() => {
+      location.reload();
+    }, 500);
+    // seems like I need to put a tiny delay here so the site has time to get the new data from firestore before reloading
+  }
+
+  randomIntTest() {
+    console.log(randInt(10, 15 + Math.floor(this.level / 2)));
+  }
+  // just a test of new level up feature, everytime you level up the maximum amount of money you can gain is 15 plus your current level/2
+}
+
+const mike = new Player();
+
+loadPlayerData();
+
+function loadPlayerData() {
+  currentPlayer
+    .get()
+    .then((doc) => {
+      mike.name = doc.data().name;
+      mike.level = doc.data().level;
+      mike.experience = doc.data().experience;
+      mike.expToNext = doc.data().exp_to_next;
+      mike.guiltFreeFunds = doc.data().guiltfree_funds;
+    })
+    .catch((err) => {
+      console.log("error getting document", err);
+    });
+}
+
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min) + 1) + min;
+}

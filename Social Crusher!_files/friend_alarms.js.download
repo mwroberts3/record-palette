@@ -1,0 +1,63 @@
+const friendAlarmList = document.querySelector(".friend-alarm-list");
+
+const friendList = [
+    {name: 'Mung', time_window: 35, timer_start: 0},
+    {name: 'Raf', time_window: 17, timer_start: 0},
+    {name: 'Jerry', time_window: 42, timer_start: 0},
+    {name: 'Sean Bro', time_window: 56, timer_start: 0},
+    {name: 'Sean C.', time_window: 56, timer_start: 0},
+    {name: 'Darrin', time_window: 21, timer_start: 0},
+    {name: 'John (the Kid)', time_window: 21, timer_start: 0},
+    {name: 'Eric', time_window: 21, timer_start: 0},
+    {name: 'Max', time_window: 21, timer_start: 0},
+    {name: 'Dad', time_window: 70, timer_start: 0},
+    {name: 'Chelsea?', time_window: 72, timer_start: 0},
+    {name: 'Emilee', time_window: 365, timer_start: 0},
+]
+
+friendAlarmList.addEventListener("click", (e) => {
+    if (e.target.tagName === "SPAN" && e.target.classList.contains("reset")) {
+        console.log(e.target.previousElementSibling.previousElementSibling.textContent)
+        db.collection("friends").where("name", "==", e.target.previousElementSibling.previousElementSibling.textContent).get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+                console.log(doc.id);
+
+                let friendToUpdate = db.collection("friends").doc(`${doc.id}`);
+                friendToUpdate.update({
+                    countdown_start: {seconds: +(new Date().getTime()/1000).toFixed(0), nanoseconds: 0}
+                }).then(() => location.reload());
+
+            })
+        })
+    }
+});
+
+// Gather and display data from firestore collection
+db.collection("friends").get().then((snapshot) => {
+    snapshot.forEach((doc) => {
+
+        console.log(doc.data().name);
+        friendList.map((friend) => {
+            if (friend.name === doc.data().name) {
+                friend.timer_start = doc.data().countdown_start.seconds;
+            }
+            return friend;
+        })
+        
+    })
+}
+).then(() => displayTimeRemaining());
+
+function displayTimeRemaining() {
+    let i = 0;
+    friendList.forEach((friend) => {
+        let currentTime = +(new Date().getTime()/1000).toFixed(0);
+    
+        console.log(friend.timer_start);
+    
+        if (friendAlarmList.children[i].children[0].textContent === friend.name) {
+            friendAlarmList.children[i].children[1].textContent = `${friend.time_window - ((currentTime - friend.timer_start) / 86400).toFixed(1)} days`;
+        }
+        i++;
+    });
+}

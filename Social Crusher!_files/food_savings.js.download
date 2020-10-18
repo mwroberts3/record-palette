@@ -1,0 +1,91 @@
+const foodSavings = document.querySelector(".food-money-spent");
+
+let foodSavingsMoney = 0;
+let foodSavingsLevel = "";
+
+foodSavings.addEventListener("click", (e) => {
+  console.log(e.target.parentElement.children);
+  console.log(e);
+  // if (e.target.classList.contains("food-low")) {
+  //   e.target.classList.toggle("selected-two");
+
+  //   e.target.parentElement.childNodes.forEach((child) => {
+  //     if (
+  //       child.nodeType !== 3 &&
+  //       child.classList.contains("selected-two") &&
+  //       child !== e.target
+  //     ) {
+  //       child.classList.toggle("selected-two");
+  //     }
+  //   });
+  // } else if (e.target.classList.contains("food-high")) {
+  //   e.target.classList.toggle("selected-two");
+  // }
+  // e.target.parentElement.childNodes.forEach((child) => {
+  //   if (
+  //     child.nodeType !== 3 &&
+  //     child.classList.contains("selected-two") &&
+  //     child !== e.target
+  //   ) {
+  //     child.classList.toggle("selected-two");
+  //   }
+  // });
+  e.target.classList.toggle("selected-two");
+
+  if (
+    e.target.nextElementSibling !== null &&
+    e.target.nextElementSibling.classList.contains("selected-two")
+  ) {
+    e.target.nextElementSibling.classList.toggle("selected-two");
+  } else if (
+    e.target.previousElementSibling !== null &&
+    e.target.previousElementSibling.classList.contains("selected-two")
+  ) {
+    e.target.previousElementSibling.classList.toggle("selected-two");
+  }
+
+  if (e.target.classList.contains("food-low")) {
+    foodSavingsMoney = randInt(150, 300);
+    foodSavingsLevel = "low food cost";
+  }
+  if (e.target.classList.contains("food-high")) {
+    foodSavingsMoney = randInt(75, 150);
+    foodSavingsLevel = "high food cost";
+  }
+});
+// the above is a more efficient way to do the above commented out section, and I'm guess there's at least a few methods more efficient than this
+
+// submit food savings
+const foodSubmit = document.querySelector(".food-submit-btn");
+
+foodSubmit.addEventListener("click", () => {
+  console.log("button clicked");
+  addFoodSavings();
+});
+
+function addFoodSavings() {
+  const now = new Date();
+
+  db.collection("food_moves")
+    .add({
+      food_experience: foodSavingsMoney,
+      level: foodSavingsLevel,
+      time: firebase.firestore.Timestamp.fromDate(now),
+    })
+    .then(() => {
+      expGained = foodSavingsMoney;
+      foodSavingsMoney += mike.experience;
+      currentPlayer.update({
+        experience: foodSavingsMoney,
+      });
+      mike.experience = Math.round(mike.experience + expGained);
+      if (mike.experience > mike.expToNext) {
+        mike.levelUp();
+      } else {
+        location.reload();
+      }
+    })
+    .then(() => {
+    })
+    .catch((err) => console.log(err));
+}

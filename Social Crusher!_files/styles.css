@@ -1,0 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+/* Main Styling */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: rgb(177, 247, 177);
+  font-family: "Alata", sans-serif;
+  color: #111;
+}
+
+/* Utilities */
+.max-width-container {
+  max-width: 90%;
+  margin: auto;
+}
+
+.heading-line {
+  background: black;
+  width: 100px;
+  height: 3px;
+  margin: auto;
+}
+
+.pd-light {
+  padding: 5px;
+}
+
+.lg-btn {
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #888;
+  box-shadow: 2px 3px #555;
+  font-size: 1.5rem;
+}
+
+.selected-one {
+  background: peru !important;
+  box-shadow: 2px 3px rgb(141, 108, 108) !important;
+}
+
+.selected-two {
+  background: orchid !important;
+  box-shadow: 2px 3px rgb(141, 108, 108) !important;
+}
+
+/* Index */
+.new-move {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-move a {
+  margin-top: 10px;
+}
+
+#index {
+  height: 100vh;
+}
+
+#index h1,
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#index h3 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.guilt-free {
+  display: flex;
+}
+
+.guilt-free input {
+  width: 20%;
+  margin-left: 75px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.food-money-spent {
+  display: flex;
+  justify-content: center;
+}
+
+.food-money-spent p {
+  width: 25vw;
+  height: 20vh;
+  border: 2px solid rosybrown;
+  background: blanchedalmond;
+  font-size: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  margin: 0 3px;
+  box-shadow: 4px 7px rgb(105, 80, 80);
+}
+
+.food-submit-btn {
+  width: 19%;
+  margin: auto;
+}
+
+#stats {
+  font-size: 1.25rem;
+}
+
+.guilt-free {
+  margin-top: 10px;
+  font-size: 1.35rem;
+}
+
+/* Micro Savings */
+.micro-savings {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.micro-savings p {
+  color: white;
+  width: 25vw;
+  height: 10vh;
+  border: 2px solid rosybrown;
+  background: rgb(129, 117, 99);
+  font-size: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  margin: 10px 5px 0;
+  box-shadow: 4px 7px rgb(105, 80, 80);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.15rem;
+}
+
+/* Add Social Move */
+#add-social-move {
+  height: 100vh;
+}
+
+#add-social-move h2 {
+  padding-top: 5px;
+  text-align: center;
+}
+
+.deliberation-check,
+.resistance-check,
+.novelty-check {
+  display: flex;
+  justify-content: center;
+}
+
+#add-social-move h3 {
+  margin: 5px 0 0;
+  text-align: center;
+}
+
+.deliberation-check div,
+.resistance-check div,
+.novelty-check div {
+  width: 25vw;
+  height: 20vh;
+  border: 2px solid rosybrown;
+  background: blanchedalmond;
+  font-size: 2rem;
+  border-radius: 10px;
+  margin: 0 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 4px 7px rgb(105, 80, 80);
+}
+
+.deliberation-check div {
+  background: burlywood;
+  width: 38vw;
+}
+
+.submit-button {
+  width: 80vw;
+  margin: 10px auto 0;
+}
+
+.submit-button button {
+  width: 100%;
+  height: 60px;
+  border: 2px solid rosybrown;
+  box-shadow: 4px 7px rgb(105, 80, 80);
+  font-family: "Alata", sans-serif;
+  font-size: 2rem;
+}
+
+.submit-button button:focus {
+  outline: none;
+}
+
+#add-food-savings {
+  height: 100vh;
+}
+
+#add-food-savings h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#add-food-savings button {
+  text-align: center;
+  width: 120%;
+  margin: 15px auto 0;
+}
+
+/* Friend Alarms */
+.friend-alarms {
+  width: 70%;
+  margin: 30px auto 0;
+  background: rgb(71, 65, 55);
+  color: #eee;
+  border-radius: 10px;
+}
+
+.friend-alarms a {
+  color: #eee;
+  text-decoration: none;
+}
+
+#view-friend-alarms {
+  font-size: 1.25rem;
+  height: 100vh;
+}
+
+#view-friend-alarms li {
+  list-style-type: none;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#view-friend-alarms li span {
+  /* font-weight: bold; */
+}
+
+.name {
+  font-weight: bold;
+}
+
+.reset {
+  padding: 0 5px;
+  margin-left: 5px;
+  background: #888;
+  color: #fff;
+  border-radius: 5px;
+}
