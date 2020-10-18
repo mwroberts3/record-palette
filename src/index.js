@@ -5,7 +5,6 @@ const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
 const folderIdInput = document.querySelector(".folder-id"); 
 const userMsg = document.querySelector(".user-msg");
-
 // Options AFTER logging in
 const loggedOutOptions = document.querySelector(".logged-out-options");
 const logoutBtn = document.querySelector(".logout");
