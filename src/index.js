@@ -150,14 +150,6 @@ function applyImageSize() {
         imageContainer.style["grid-template-columns"] = `1fr`;
     }
 
-    // if (tabletWidth.matches) {
-    //     imageContainer.style["grid-template-columns"] = `1fr`;
-    // }
-
-    // document.querySelectorAll(".cover-img").forEach((cover) => {
-    //     cover.style["max-width"] = `${imageSizeRange[imageSize.value].min}px`;
-    // });
-
     console.log(document.querySelectorAll(".cover-img"));
 
 
