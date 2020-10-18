@@ -205,7 +205,7 @@ function sortAlbums() {
     }
 
     localStorage.setItem("sortBy", sortBy.value);
-
+    
     displayImages();
 }
 
@@ -248,6 +248,8 @@ function displayImages () {
 
         imageContainer.appendChild (albumContainer); 
     })
+
+    generatePopups();
 }
 
 async function download(){ 
@@ -276,5 +278,19 @@ async function download(){
         }, 750) 
   } 
 
+function generatePopups() {
+    let i = 0;
+    imageContainer.childNodes.forEach((child) => {
+        child.setAttribute("id", `${i}`)
+        i++;
+    });
+
+    // console.log(imageContainer.childNodes);
+
+    imageContainer.addEventListener("click", (e) => {
+        console.log(e.target.parentElement);
+        console.log(albumData[e.target.parentElement.id]);
+    });
+}
 
 
