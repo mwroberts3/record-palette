@@ -285,8 +285,6 @@ function generatePopups() {
         i++;
     });
 
-    // console.log(imageContainer.childNodes);
-
     imageContainer.addEventListener("click", (e) => {
         console.log(e.target.parentElement);
         console.log(albumData[e.target.parentElement.id]);
