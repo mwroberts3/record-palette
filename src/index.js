@@ -5,6 +5,7 @@ const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
 const folderIdInput = document.querySelector(".folder-id"); 
 const userMsg = document.querySelector(".user-msg");
+
 // Options AFTER logging in
 const loggedOutOptions = document.querySelector(".logged-out-options");
 const logoutBtn = document.querySelector(".logout");
@@ -279,6 +280,8 @@ async function download(){
   } 
 
 function generatePopups() {
+    const totalContainer = document.querySelector(".total-container");
+
     let i = 0;
     imageContainer.childNodes.forEach((child) => {
         child.setAttribute("id", `${i}`)
@@ -288,6 +291,41 @@ function generatePopups() {
     imageContainer.addEventListener("click", (e) => {
         console.log(e.target.parentElement);
         console.log(albumData[e.target.parentElement.id]);
+
+        let selectedAlbum = albumData[e.target.parentElement.id].basic_information;
+
+        let albumPopup = document.createElement("div");
+
+        console.log(albumPopup);
+
+        albumPopup.classList.add("album-popup");
+
+        albumPopup.innerHTML = `
+            <div>
+                <img src="${selectedAlbum.cover_image}" />
+            </div>
+            <div>
+                <span><strong>Title:</strong> ${selectedAlbum.title} 
+                <strong>Artist:</strong> ${selectedAlbum.artists[0].name} 
+                <strong>Date Added:</strong> ${albumData[e.target.parentElement.id].date_added}
+                </span>
+            </div>
+            <div>
+                <span>
+                <strong>Format:</strong> ${selectedAlbum.formats[0].name}
+                <strong>Label:</strong> ${selectedAlbum.labels[0].name}
+                <strong>Catalog No.:</strong> ${selectedAlbum.labels[0].catno}
+                </span>
+            </div>
+            <div>
+                <span><strong>Genres:</strong> ${selectedAlbum.genres}</span>
+            </div>
+            <div>
+                <span><strong>Styles:</strong> ${selectedAlbum.styles}</span>
+            </div>
+        `;
+
+        imageContainer.appendChild(albumPopup);
     });
 }
 
