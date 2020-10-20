@@ -6,6 +6,10 @@ BUGS & FIXES:
 
 -maybe add links to certain discogs pages when popup window is launched
 
+CHANGES FOR VERSION 1.XX:
+-username links to their discogs profile
+-popup that displays album information when you click on the image from the gallery
+
 FEATURES TO ADD:
 -going off date added, maybe there should be a feature to see how fast their record collection is growing...sort of graph of the dates when their record collection started and how often they've added to it
 

@@ -11,6 +11,14 @@ body {
   margin: 0 auto;
   padding: 0 2%; }
 
+a {
+  text-decoration: none; }
+
+a:visited,
+a:active,
+a:hover {
+  color: #000; }
+
 .hidden {
   display: none !important; }
 
@@ -160,9 +168,9 @@ select {
   .image-container .album-popup {
     position: fixed;
     width: 100%;
-    max-width: 850px;
+    max-width: 90vh;
     height: 100%;
-    max-height: 850px;
+    max-height: 90vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

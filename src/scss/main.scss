@@ -19,6 +19,16 @@ body {
   padding: 0 2%;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:visited,
+a:active,
+a:hover {
+  color: #000;
+}
+
 // Utilities
 .hidden {
   display: none !important;
@@ -225,9 +235,9 @@ select {
   .album-popup {
     position: fixed;
     width: 100%;
-    max-width: $max-width / 2;
+    max-width: 90vh;
     height: 100%;
-    max-height: $max-width / 2;
+    max-height: 90vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
