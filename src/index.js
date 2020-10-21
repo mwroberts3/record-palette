@@ -281,36 +281,35 @@ async function download(){
 
 function generatePopups() {
 
+    // fade-in for album thumbnails display
+    imageContainer.classList.add("show");
+
     let i = 0;
     imageContainer.childNodes.forEach((child) => {
         child.setAttribute("id", `${i}`)
         i++;
     });
 
-
-    let popUpOpen = false;
     let albumPopup = document.createElement("div");
+    albumPopup.classList.add("album-popup");
      
     imageContainer.addEventListener("click", (e) => {
 
         let selectedAlbum = "";
 
-        console.log(e.target);
-
         if (e.target.classList.contains("cover-img") || albumPopup.innerHTML === "" && e.target.classList.contains("album-caption")) {
 
             selectedAlbum = albumData[e.target.parentElement.id].basic_information;
-
-            albumPopup.classList.add("album-popup");
     
             albumPopup.innerHTML = `
+            <div>
                 <div>
                     <img src="${selectedAlbum.cover_image}" />
                 </div>
                 <div>
                     <span><strong>Title:</strong> ${selectedAlbum.title} 
                     <strong>Artist:</strong> ${selectedAlbum.artists[0].name} 
-                    <strong>Date Added:</strong> ${albumData[e.target.parentElement.id].date_added}
+                    <strong>Date Added:</strong> ${albumData[e.target.parentElement.id].date_added.substring(0,10)}
                     </span>
                 </div>
                 <div>
@@ -326,13 +325,14 @@ function generatePopups() {
                 <div>
                     <span><strong>Styles:</strong> ${selectedAlbum.styles}</span>
                 </div>
+            </div>
             `;
             imageContainer.appendChild(albumPopup);
+
+            albumPopup.classList.add("show");
         }
-
-        
     });
-
+    
     albumPopup.addEventListener("click" , () => {
         imageContainer.removeChild(albumPopup);
         albumPopup.innerHTML = "";

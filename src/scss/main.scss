@@ -78,6 +78,11 @@ button {
   }
 }
 
+.logout {
+  margin-left: 30px;
+  width: 80px;
+}
+
 h1 {
   margin: 20px 0 0;
   color: black;
@@ -97,6 +102,9 @@ select {
   font-family: $common-font;
   font-size: 0.9rem;
   background: #eee;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 
   &:focus {
     outline-color: rgb(58, 82, 82);
@@ -197,7 +205,12 @@ select {
   margin: 0 auto 10px;
   width: 100%;
   display: grid;
-  // grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+
+  &.show {
+    opacity: 1;
+  }
 
   .album-container {
     display: flex;
@@ -235,34 +248,47 @@ select {
   .album-popup {
     position: fixed;
     width: 100%;
-    max-width: 90vh;
     height: 100%;
-    max-height: 90vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(70, 80, 100, 0.7);
+    background: #465064e6;
     color: white;
     border-radius: 10px;
     padding: 15px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 
     img {
       width: 100%;
+      max-width: 85vh;
+      object-fit: fill;
       border: 2px solid #aaa;
       border-radius: 5px;
     }
 
     span {
-      background: #666;
       font-size: 0.9rem;
     }
 
-    div {
-      width: 90%;
+    div:first-of-type {
+      width: 100%;
+      border: 2px solid #fff;
+
+      :first-child {
+        width: 100%;
+        margin: auto;
+      }
+
+      :nth-child(2) {
+        width: 65%;
+      }
+    }
+
+    &.show {
+      opacity: 1;
     }
   }
 }
@@ -286,6 +312,7 @@ select {
 
 .logged-in-username {
   margin: auto 0;
+  cursor: pointer;
 }
 
 .user-msg {

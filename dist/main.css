@@ -55,6 +55,10 @@ button {
   .logged-in-btn:hover {
     background: transparent; }
 
+.logout {
+  margin-left: 30px;
+  width: 80px; }
+
 h1 {
   margin: 20px 0 0;
   color: black;
@@ -71,7 +75,10 @@ select {
   border: 1px solid #888;
   font-family: "Quicksand", sans-serif;
   font-size: 0.9rem;
-  background: #eee; }
+  background: #eee;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
   select:focus {
     outline-color: #3a5252; }
 
@@ -140,7 +147,11 @@ select {
   padding: 0 4px 30px;
   margin: 0 auto 10px;
   width: 100%;
-  display: grid; }
+  display: grid;
+  opacity: 0;
+  transition: opacity 0.5s ease; }
+  .image-container.show {
+    opacity: 1; }
   .image-container .album-container {
     display: flex;
     flex-direction: column;
@@ -168,29 +179,36 @@ select {
   .image-container .album-popup {
     position: fixed;
     width: 100%;
-    max-width: 90vh;
     height: 100%;
-    max-height: 90vh;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(70, 80, 100, 0.7);
+    background: #465064e6;
     color: white;
     border-radius: 10px;
     padding: 15px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center; }
+    opacity: 0;
+    transition: opacity 0.3s ease; }
     .image-container .album-popup img {
       width: 100%;
+      max-width: 85vh;
+      object-fit: fill;
       border: 2px solid #aaa;
       border-radius: 5px; }
     .image-container .album-popup span {
-      background: #666;
       font-size: 0.9rem; }
-    .image-container .album-popup div {
-      width: 90%; }
+    .image-container .album-popup div:first-of-type {
+      width: 100%;
+      border: 2px solid #fff; }
+      .image-container .album-popup div:first-of-type :first-child {
+        width: 100%;
+        margin: auto; }
+      .image-container .album-popup div:first-of-type :nth-child(2) {
+        width: 65%; }
+    .image-container .album-popup.show {
+      opacity: 1; }
 
 .small,
 .tiny {
@@ -205,7 +223,8 @@ select {
     grid-template-columns: repeat(auto-fill, 1fr); } }
 
 .logged-in-username {
-  margin: auto 0; }
+  margin: auto 0;
+  cursor: pointer; }
 
 .user-msg {
   color: #3b003b;

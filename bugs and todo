@@ -1,10 +1,7 @@
 BUGS & FIXES:
--make the customer <select> styling visible on a Mac by adding the following to its style in main.scss:
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
 -maybe add links to certain discogs pages when popup window is launched
+
+-for some reason a typing cursor appears next to the logged in name, right at the end
 
 CHANGES FOR VERSION 1.XX:
 -username links to their discogs profile
