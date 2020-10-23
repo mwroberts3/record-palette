@@ -208,7 +208,7 @@ select {
   opacity: 0;
   transition: opacity 0.5s ease;
 
-  &.show {
+  &.fade-in {
     opacity: 1;
   }
 
@@ -224,7 +224,6 @@ select {
       padding-top: 99.5%;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
-      // max-width: 150px;
     }
 
     .album-caption {
@@ -254,18 +253,18 @@ select {
     transform: translate(-50%, -50%);
     background: #465064e6;
     color: white;
-    border-radius: 10px;
+    // border-radius: 10px;
     padding: 15px;
     display: flex;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 
     img {
       width: 100%;
       max-width: 85vh;
-      object-fit: fill;
-      border: 2px solid #aaa;
+      border: 1px solid #aaa;
+      // padding-right: 20px;
       border-radius: 5px;
     }
 
@@ -275,19 +274,22 @@ select {
 
     div:first-of-type {
       width: 100%;
-      border: 2px solid #fff;
+      max-width: 600px;
+      margin: auto;
 
-      :first-child {
-        width: 100%;
-        margin: auto;
-      }
+      @media screen and (max-height: 414px) {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
 
-      :nth-child(2) {
-        width: 65%;
+        > div:not(:first-child) div {
+          width: 100%;
+          padding-left: 10px;
+        }
       }
     }
 
-    &.show {
+    &.fade-in {
       opacity: 1;
     }
   }
