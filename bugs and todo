@@ -1,13 +1,21 @@
 BUGS & FIXES:
--make the customer <select> styling visible on a Mac by adding the following to its style in main.scss:
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+-for some reason a typing cursor appears next to the logged in name, right at the end
 
+-when you change the thumbnail size in the dropdown menu another layer of popup is added so you have to click through an extra layer to close the popup...very strange, but absolutely needs to be fixed
+
+CHANGES FOR VERSION 1.15:
+-username links to their discogs profile
+-popup that displays album information when you click on the image from the gallery
+-smoother transitions
 
 FEATURES TO ADD:
+<<<<<<< HEAD
 -going off dates added, maybe there should be a feature to see how fast their record collection is growing...sort of graph of the dates when their record collection started and how often they've added to it
+=======
+-maybe add links to certain discogs pages when popup window is launched
+-going off date added, maybe there should be a feature to see how fast their record collection is growing...sort of graph of the dates when their record collection started and how often they've added to it
+>>>>>>> next_version
 
 -maybe should have two different sorting methods regarding release date. Could have release year for that specific version, and then maybe a year recorded method of sorting
 
--clicking on cover should pull up popup with more information. Maybe can use the path.find method from 20 vanilla javascript section 8, mealfinder
+

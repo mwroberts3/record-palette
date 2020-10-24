@@ -1,10 +1,11 @@
-// import './scss/main.scss';
+import './scss/main.scss';
 
 // Inputs BEFORE logging in
 const loggedInOptions = document.querySelector(".logged-in-options");
 const usernameInput = document.querySelector(".username");
 const folderIdInput = document.querySelector(".folder-id"); 
 const userMsg = document.querySelector(".user-msg");
+
 // Options AFTER logging in
 const loggedOutOptions = document.querySelector(".logged-out-options");
 const logoutBtn = document.querySelector(".logout");
@@ -86,6 +87,8 @@ sortBy.addEventListener("change", () => {
     sortAlbums();
 })
 
+imageContainer.addEventListener("click", generatePopups);
+
 // Form validation
 function validateForm() {
     if (username === '') {
@@ -114,7 +117,7 @@ async function gatherImagesandData() {
         loggedInOptions.classList.remove("hidden");
         logoutBtn.classList.add("logged-in-btn");
 
-        loggedInUsername.textContent = `${username}`; 
+        loggedInUsername.innerHTML = `<a href="https://www.discogs.com/user/${username}">${username}</a>`; 
 
         userMsg.textContent = "";
 
@@ -205,7 +208,7 @@ function sortAlbums() {
     }
 
     localStorage.setItem("sortBy", sortBy.value);
-
+    
     displayImages();
 }
 
@@ -244,10 +247,70 @@ function displayImages () {
             localStorage.setItem("captions", "not checked");
         }
         
-        
-
         imageContainer.appendChild (albumContainer); 
     })
+
+    // fade-in for album thumbnails display
+    imageContainer.classList.add("fade-in");
+    
+    let j = 0;
+    imageContainer.childNodes.forEach((child) => {
+        child.setAttribute("id", `${j}`)
+        j++;
+    });
+}
+
+function generatePopups(e) {
+    let albumPopup = document.createElement("div");
+    albumPopup.classList.add("album-popup");
+
+    let selectedAlbum = "";
+
+    if (e.target.classList.contains("cover-img") || albumPopup.innerHTML === "" && e.target.classList.contains("album-caption")) {
+
+        selectedAlbum = albumData[e.target.parentElement.id].basic_information;
+
+        albumPopup.innerHTML = `
+        <div>
+            <div>
+                <img src="${selectedAlbum.cover_image}" />
+            </div>
+            <div>
+                <div>
+                    <span><strong>Title:</strong> ${selectedAlbum.title} 
+                    <strong>Artist:</strong> ${selectedAlbum.artists[0].name} 
+                    <strong>Date Added:</strong> ${albumData[e.target.parentElement.id].date_added.substring(0,10)}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                    <strong>Format:</strong> ${selectedAlbum.formats[0].name}
+                    <strong>Label:</strong> ${selectedAlbum.labels[0].name}
+                    <strong>Catalog No.:</strong> ${selectedAlbum.labels[0].catno}
+                    </span>
+                </div>
+                <div>
+                    <span><strong>Genres:</strong> ${selectedAlbum.genres}</span>
+                </div>
+                <div>
+                    <span><strong>Styles:</strong> ${selectedAlbum.styles}</span>
+                </div>
+            </div>
+        </div>
+        `;
+
+        imageContainer.appendChild(albumPopup);
+        console.log(document.querySelectorAll(".album-popup").length);
+
+        setTimeout(() => {
+            albumPopup.classList.add("fade-in");
+        }, 1);        
+    }
+    
+    albumPopup.addEventListener("click" , () => {
+        imageContainer.removeChild(albumPopup);
+        albumPopup.innerHTML = "";
+    });
 }
 
 async function download(){ 
@@ -275,6 +338,8 @@ async function download(){
         })
         }, 750) 
   } 
+
+
 
 
 

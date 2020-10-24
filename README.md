@@ -1,8 +1,8 @@
 # Record Palette
 
-**Current Version:** 1.0
+**Current Version:** 1.15
 <br>
-**Launch Date:** October 2, 2020
+**Launch Date:** October 23, 2020
 <br>
 **Created By:** mwroberts3
 <br>
@@ -22,6 +22,13 @@ Users can download the album covers with the download button, if they want to us
 
 ## Version History
 
+**1.15 - 10/23/20**
+<br>
+
+- Added popup with large cover and album info when clicking on album thumbnail
+- Clicking on username once logged in links to Discogs profile
+- Various UI tweaks for visual appeal, including fade-ins
+
 **1.0 - 10/2/20**
 <br>
 
@@ -36,7 +43,6 @@ Users can download the album covers with the download button, if they want to us
 
 - Would like to add more sorting options, (perhaps the ability to sort by color)
 - Ability to download one .zip file instead of images individually
-- A hover over (touch for mobile) display with more album information
 
 ## Contributing
 
