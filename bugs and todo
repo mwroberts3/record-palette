@@ -1,7 +1,12 @@
 BUGS & FIXES:
 -for some reason a typing cursor appears next to the logged in name, right at the end
 
--when you change the thumbnail size in the dropdown menu another layer of popup is added so you have to click through an extra layer to close the popup...very strange, but absolutely needs to be fixed
+-really strange glitch regarding popup image size. When my Pixel 2 is in the portrait position and I click a thumbnail from the top row, the image of the album cover is slightly larger than the popup container and pokes out on the bottom. 
+    -this isn't an issue for all the images and if you scroll down a little while the popup is open, or choose an image from a lower row then this issue doesn't happen
+
+-apostrophes and periods shouldn't count as the first "letter" when sorting by album
+
+-need to account for the discogs fill-in spacer.gif, it kind of breaks the sort by color option
 
 CHANGES FOR VERSION 1.15:
 -username links to their discogs profile

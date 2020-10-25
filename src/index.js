@@ -105,9 +105,6 @@ async function gatherImagesandData() {
     }
     const response = await fetch(`https://api.discogs.com/users/${username}/collection/folders/${folderId}/releases?token=${token}`);
     const data = await response.json();
-    
-    console.log(data);
-    console.log(response);
 
     if (response.status === 404) {
         userMsg.textContent = "username not found";
@@ -179,6 +176,8 @@ function sortAlbums() {
                 return 0;
             }
         })
+
+        displayImages();
     }
 
     // sort by album name ascending
@@ -192,6 +191,8 @@ function sortAlbums() {
                 return 0;
             }
         })
+
+        displayImages();
     }
 
     // sort by date added ascending
@@ -205,11 +206,48 @@ function sortAlbums() {
                 return 0;
             }
         })
+
+        displayImages();
+    }
+
+    // sort by color
+    if (sortBy.value === "color") {
+       sortByColor(); 
     }
 
     localStorage.setItem("sortBy", sortBy.value);
     
-    displayImages();
+   
+}
+
+function sortByColor() {
+    const fastAvgColor = new FastAverageColor();
+    
+    for(let i = 0; i < albumData.length; i++) {
+        fastAvgColor.getColorAsync(albumData[i].basic_information.cover_image).then(color => {
+                albumData[i].color_value = rgbAverage(color);
+    }).then(() => {
+        if (i === albumData.length - 1) {
+            albumData.sort((a, b) => {
+                if (a.color_value > b.color_value) {
+                    return 1;
+                } else if (b.color_value > a.color_value) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            })
+
+            console.log(albumData);
+            displayImages();
+    }}); 
+    }
+};
+
+function rgbAverage(color) {
+    let colorAvg = (color.value[0] + color.value[1] + color.value[2]) / 3;
+
+    return +colorAvg.toFixed(2);
 }
 
 function displayImages () {
